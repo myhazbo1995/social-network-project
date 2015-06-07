@@ -7,7 +7,7 @@
 
 <h2>@ViewBag.Title.</h2>
 
-<link href="/Content/CustomStyles.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/CustomStyles.css" rel="stylesheet" type="text/css" />
 
 <div class="navbar navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -21,7 +21,7 @@
     <div class="row-fluid">
         <div class="span7" id="content">
             <div style="padding:80px;">
-                <img src="/Images/replacement people.jpg" />
+                <img src="~/Images/replacement people.jpg" />
             </div>
 
         </div>
@@ -71,11 +71,11 @@
                         }
                     </section>
                 </div>
-                <div class="col-md-4">
+                @*<div class="col-md-4">
                     <section id="socialLoginForm">
                         @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
                     </section>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>

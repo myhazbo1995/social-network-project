@@ -9,9 +9,9 @@ namespace SocialNetwork.Model.Models
     {
         public int PostId { get; set; }
 
-        public string PostName { set; get; }
+        public string PostShortDescription { set; get; }
 
-        public string Desc { get; set; }
+        public string PostLongDescription { get; set; }
 
         public string PostPictureUrl { get; set; }
 

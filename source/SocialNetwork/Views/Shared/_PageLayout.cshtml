@@ -18,7 +18,7 @@
 
             evt = e || window.event;
             var userName = $("#searchUserSupport").val();
-            var url = '/Goal/SearchUser';
+            var url = '~/Goal/SearchUser';
             if ((evt.keyCode != 13) && ($("#searchUserSupport").val() != "" && $("#searchUserSupport").val().length >= 1)) {
                 var getData = { 'username': userName, 'goalId': goalid };
                 $.get(url, getData, function (result) {
@@ -43,7 +43,7 @@
         function SearchUser(e, id) {
             evt = e || window.event;
             var userName = $("#searchUser").val();
-            var url = '/Group/SearchUserForGroup';
+            var url = '~/Group/SearchUserForGroup';
 
             if ((evt != 13) && ($("#searchUser").val() != "" && $("#searchUser").val().length >= 1)) {
 
@@ -123,6 +123,24 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal" id="createpost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         style="display: none;" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="enableScroll()">
+                ×
+            </button>
+            <h5 id="myModalLabel">
+                Create Post
+            </h5>
+        </div>
+        <div class="modal-body" id="createPostModal">
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="enableScroll()">
+                Close
+            </button>
         </div>
     </div>
     <div class="modal" id="creategoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -266,7 +284,7 @@
 
     function cancelProfile(id) {
         e.preventDefault();
-        window.location.href = '/Account/UserProfile/id'; //"UserProfile", "Account", new { id = (((SocialNetwork.Core.Models.SocialNetworkUser)(User.Identity)).UserId) })'
+        window.location.href = '~/Account/UserProfile/id'; //"UserProfile", "Account", new { id = (((SocialNetwork.Core.Models.SocialNetworkUser)(User.Identity)).UserId) })'
     }
     function saveUpdate(target, metric) {
 
@@ -289,7 +307,7 @@
         //        }
         else {
             var PostData = { 'GoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus };
-            var url = '/Goal/SaveUpdate';
+            var url = '~/Goal/SaveUpdate';
             $.post(url, PostData, function (response) {
                 LoadReport();
                 $("#divupdate").html(response);
@@ -460,7 +478,7 @@ $('#divFollowedGroup').getNiceScroll().remove();
 $('#divSGoals').getNiceScroll().remove();
 $('#divGoals').getNiceScroll().remove();
 $('#notification').getNiceScroll().remove();
- var url ="/Account/Followers";
+ var url ="~/Account/Followers";
  $.get(url,function(result){
 	$("#followedUsers").html(result);
 
@@ -473,7 +491,7 @@ $('#divFollowedGroup').getNiceScroll().remove();
 $('#divSGoals').getNiceScroll().remove();
 $('#divGoals').getNiceScroll().remove();
 $('#notification').getNiceScroll().remove();
- var url ="/Account/Followings";
+ var url ="~/Account/Followings";
  $.get(url,function(result){
 	$("#followingUsers").html(result);
 
@@ -487,11 +505,22 @@ $('#divFollowedGroup').getNiceScroll().remove();
 $('#divSGoals').getNiceScroll().remove();
 $('#divGoals').getNiceScroll().remove();
 $('#notification').getNiceScroll().remove();
- var url ="/Goal/Create";
+ var url ='@Url.Action("Create", "Goal")'
  $.get(url,function(result){
 	$("#createGoalModal").html(result);
 
  });
+}
+function CreatePost() {
+    $('#divFollowedGroup').getNiceScroll().remove();
+    $('#divSGoals').getNiceScroll().remove();
+    $('#divGoals').getNiceScroll().remove();
+    $('#notification').getNiceScroll().remove();
+    var url = '@Url.Action("Create", "Post")'
+    $.get(url, function (result) {
+        $("#createPostModal").html(result);
+
+    });
 }
 
 //function CreateGroupGoal(id)
@@ -513,7 +542,7 @@ function CreateGroup()
 	$('#divSGoals').getNiceScroll().remove();
 	$('#divGoals').getNiceScroll().remove();
 	$('#notification').getNiceScroll().remove();
-	var url ="/Group/CreateGroup";
+	var url ="~/Group/CreateGroup";
 	$.get(url,function(result){
 	$("#createGroup").html(result);
 	$('#notification').getNiceScroll();
@@ -541,7 +570,7 @@ function enableScroll()
 		if ($("Email").val() != "") {
 			$("#btnInvite").attr("disabled", "true");
 			var email = $("#Email").val();
-			var url = '/Group/InviteEmail';
+			var url = '~/Group/InviteEmail';
 			var postData = { 'Email': email, 'GrouporGoalId': groupId }
 			$.post(url, postData, function (result) {
 				$("#msgGroup").css({'display':'block'});
@@ -555,7 +584,7 @@ function enableScroll()
 	}
 
 	function SupportInvitation(id) {
-		url = '/Goal/SupportInvitation';
+		url = '~/Goal/SupportInvitation';
 
 		$.get(url, { goalId: id }, function (result) {
 			$('#InviteForm').html(result);
@@ -616,7 +645,7 @@ function enableScroll()
 		
 			$("#drpdwnBtn").attr("disabled", "true");
 			var id = $("#GoalStatusId").val();
-			var url = '/Goal/GoalStatus';
+			var url = '~/Goal/GoalStatus';
 			var goalid = $("#GoalId").val();
 			$.post(url, { 'id': id, 'goalid': goalid }, function (e) {
 				$("#goalStatus").html(e);
@@ -628,7 +657,7 @@ function enableScroll()
 		
 			$("#grpdrpdwnBtn").attr("disabled", "true");
 			var id = $("#GoalStatusId").val();
-			var url = '/Group/GoalStatus';
+			var url = '~/Group/GoalStatus';
 			var goalid = $("#GroupGoalId").val();
 			$.post(url, { 'id': id, 'goalid': goalid }, function (e) {
 				$("#groupgoalStatus").html(e);
@@ -672,7 +701,7 @@ function saveGroupUpdate(target,metric) {
 
  $.ajax({
 		type:"POST",
-		 url: "/Group/SaveUpdate",
+		 url: "~/Group/SaveUpdate",
 		 data: PostData,
 	 }).done(function (result) {
 		 $(this).addClass("done");
@@ -686,7 +715,7 @@ function saveGroupUpdate(target,metric) {
 }  
  function CommentExpandInGroupUpdate(UpdateId) {
 		var Updateid = UpdateId;
-		var url = '/Group/DisplayComments';
+		var url = '~/Group/DisplayComments';
 		$.get(url, { 'id': Updateid }, function (result) {
 
 			$("#divgroupcommentUpdate" + Updateid.toString()).html(result);
@@ -711,8 +740,8 @@ function saveGroupUpdate(target,metric) {
 			var CurrCommnt = $("#GroupCommentText" + id.toString()).val();
 
 
-			var url2 = '/Group/DisplayCommentCount';
-			var url = '/Group/SaveComment';
+			var url2 = '~/Group/DisplayCommentCount';
+			var url = '~/Group/SaveComment';
 			var PostData = { 'GroupUpdateId': Updateid, 'CommentText': CurrCommnt };
 			$.post(url, PostData, function (result) {
 				$("#divgroupcommentUpdate" + id.toString()).html(result);
@@ -763,7 +792,7 @@ function saveGroupUpdate(target,metric) {
 
 	function EditBasicInfo()
 	{
-	var url ='/Account/EditBasicInfo'
+	var url ='../EditBasicInfo'
 	$.get(url,function(result)
 	{
     $("#divBasicInfo").html('');
@@ -774,7 +803,7 @@ function saveGroupUpdate(target,metric) {
 
 	 function EditPersonalInfo()
 	{
-	var url ='/Account/EditPersonalInfo'
+	var url ='../EditPersonalInfo'
 	$.get(url,function(result)
 	{
     $("#divPersonalInfo").html('');
@@ -787,7 +816,7 @@ function saveGroupUpdate(target,metric) {
 	{
 
     $.ajax({
-  url: '/Account/ImageUpload',
+  url: '../ImageUpload',
   cache:false,
   success: function(data) {
     $('#profilepic').html(data);
@@ -801,7 +830,26 @@ function saveGroupUpdate(target,metric) {
 //	$("#profilepic").html(result);
 
 //	});
-	}
+	 }
+
+	 function EditPost() {
+
+	     $.ajax({
+	         url: '../ImageUpload',
+	         cache: false,
+	         success: function (data) {
+	             $('#profilepic').html(data);
+
+	         }
+	     })
+	     //	var url ='/Account/ImageUpload'
+
+	     //	$.get(url,function(result)
+	     //	{
+	     //	$("#profilepic").html(result);
+
+	     //	});
+	 }
 
 
 //  function EnableInviteBtn() {
@@ -821,7 +869,7 @@ function saveGroupUpdate(target,metric) {
     
 function SearchMember(groupid)
 {
- var url ="/Group/SearchMemberForGoalAssigning";
+ var url ="~/Group/SearchMemberForGoalAssigning";
  $.get(url,{ 'id': groupid },function(result){
 	$("#searchmember").html(result);
     

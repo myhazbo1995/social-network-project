@@ -150,8 +150,8 @@ else
 
             var CurrCommnt = $("#CommentText" + id.toString()).val();
 
-            var url2 = '/Goal/DisplayCommentCount';
-            var url = '/Goal/SaveComment';
+            var url2 = '~/Goal/DisplayCommentCount';
+            var url = '~/Goal/SaveComment';
             var PostData = { 'UpdateId': Updateid, 'CommentText': CurrCommnt };
             $.post(url, PostData, function (result) {
                 $("#divcommentUpdate" + id.toString()).html(result);

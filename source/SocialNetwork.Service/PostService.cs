@@ -28,7 +28,7 @@ namespace SocialNetwork.Service
         void EditPost(Post postToEdit);
         void DeletePost(int id);
         void SavePost();
-        IEnumerable<Post> SearchPost(string post);
+        //IEnumerable<Post> SearchPost(string post);
 
         IEnumerable<Post> GetPostsByPage(string userId, int currentPage, int noOfRecords, string sortBy, string filterBy);
     }
@@ -114,10 +114,10 @@ namespace SocialNetwork.Service
             var posts = postRepository.GetMany(g => g.UserId == userid).OrderByDescending(g => g.CreatedDate).Take(20).ToList();
             return posts;
         }
-        public IEnumerable<Post> SearchPost(string Post)
-        {
-            return postRepository.GetMany(g => g.PostName.ToLower().Contains(Post.ToLower())).OrderBy(g => g.PostName);
-        }
+        //public IEnumerable<Post> SearchPost(string Post)
+        //{
+        //    return postRepository.GetMany(g => g.PostName.ToLower().Contains(Post.ToLower())).OrderBy(g => g.PostName);
+        //}
         public Post GetPost(int id)
         {
             var post = postRepository.GetById(id);

@@ -56,7 +56,7 @@
 
         evt = e || window.event;
         var userName = $("#searchUserSupport").val();
-        var url = '/Goal/SearchUser';
+        var url = '~/Goal/SearchUser';
         if ((evt.keyCode != 13) && ($("#searchUserSupport").val() != "" && $("#searchUserSupport").val().length >= 1)) {
             var getData = { 'username': userName, 'goalId': goalid };
             $.get(url, getData, function (result) {

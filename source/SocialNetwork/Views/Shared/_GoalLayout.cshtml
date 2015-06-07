@@ -17,14 +17,14 @@
 
 		function search() {
 			var goal = $("#goal").val();
-			window.location = '/Search/SearchAll/' + goal;
+			window.location = '~/Search/SearchAll/' + goal;
 }
 
 		function SearchUser(e, id) {
 		    alert("Entered");
 			evt = e || window.event;
 			var userName = $("#searchUser").val();
-			var url = '/Group/SearchUserForGroup';
+			var url = '~/Group/SearchUserForGroup';
 
 			if ((evt != 13) && ($("#searchUser").val() != "" && $("#searchUser").val().length >= 1)) {
 
@@ -247,7 +247,7 @@
 
 	function cancelProfile(id) {
 		e.preventDefault();
-		window.location.href = '/Account/UserProfile/id'; //"UserProfile", "Account", new { id = (((SocialNetwork.Core.Models.SocialNetworkUser)(User.Identity)).UserId) })'
+		window.location.href = '~/Account/UserProfile/id'; //"UserProfile", "Account", new { id = (((SocialNetwork.Core.Models.SocialNetworkUser)(User.Identity)).UserId) })'
 	}
 
 
@@ -406,7 +406,7 @@
         $('#divSGoals').getNiceScroll().remove();
         $('#divGoals').getNiceScroll().remove();
         $('#notification').getNiceScroll().remove();
-        var url ="/Account/Followers";
+        var url ="~/Account/Followers";
         $.get(url,function(result){
 	        $("#followedUsers").html(result);    
         });
@@ -418,7 +418,7 @@
         $('#divSGoals').getNiceScroll().remove();
         $('#divGoals').getNiceScroll().remove();
         $('#notification').getNiceScroll().remove();
-        var url ="/Account/Followings";
+        var url ="~/Account/Followings";
         $.get(url,function(result){
 	        $("#followingUsers").html(result);    
         });
@@ -431,7 +431,9 @@
         $('#divSGoals').getNiceScroll().remove();
         $('#divGoals').getNiceScroll().remove();
         $('#notification').getNiceScroll().remove();
-        var url ="/Goal/Create";
+
+        var url = '@Url.Action("Create", "Goal")'
+
         $.get(url,function(result){
 	        $("#createGoalModal").html(result);        
         });
@@ -444,7 +446,7 @@
 	    $('#divSGoals').getNiceScroll().remove();
 	    $('#divGoals').getNiceScroll().remove();
 	    $('#notification').getNiceScroll().remove();
-	    var url ="/Group/CreateGroup";
+	    var url ="~/Group/CreateGroup";
 	    $.get(url,function(result){
 	        $("#createGroup").html(result);
 	        $('#notification').getNiceScroll();
@@ -464,7 +466,7 @@
 		if ($("Email").val() != "") {
 			$("#btnInvite").attr("disabled", "true");
 			var email = $("#Email").val();
-			var url = '/Group/InviteEmail';
+			var url = '~/Group/InviteEmail';
 			var postData = { 'Email': email, 'GrouporGoalId': groupId }
 			$.post(url, postData, function (result) {
 				$("#msgGroup").css({'display':'block'});
@@ -477,7 +479,7 @@
 	}
 
 	function SupportInvitation(id) {
-		url = '/Goal/SupportInvitation';
+		url = '~/Goal/SupportInvitation';
 		$.get(url, { goalId: id }, function (result) {
 			$('#InviteForm').html(result);
 		});
@@ -537,7 +539,7 @@
 		
 			$("#drpdwnBtn").attr("disabled", "true");
 			var id = $("#GoalStatusId").val();
-			var url = '/Goal/GoalStatus';
+			var url = '~/Goal/GoalStatus';
 			var goalid = $("#GoalId").val();
 			$.post(url, { 'id': id, 'goalid': goalid }, function (response) {
 			    $("#goalStatus").html(response);
@@ -560,7 +562,7 @@
 	function GroupDropDownChange() {		
 		$("#grpdrpdwnBtn").attr("disabled", "true");
 		var id = $("#GoalStatusId").val();
-		var url = '/Group/GoalStatus';
+		var url = '~/Group/GoalStatus';
 		var goalid = $("#GoalId").val();
 		$.post(url, { 'id': id, 'goalid': goalid }, function (response) {
 		    $("#groupgoalStatus").html(response);
@@ -581,7 +583,7 @@
     
     function CommentExpandInGroupUpdate(UpdateId) {
 		var Updateid = UpdateId;
-		var url = '/Group/DisplayComments';
+		var url = '~/Group/DisplayComments';
 		$.get(url, { 'id': Updateid }, function (result) {
 
 			$("#divgroupcommentUpdate" + Updateid.toString()).html(result);
@@ -600,8 +602,8 @@
 	function updateGroupComment(id) {		
 		var Updateid = id;
 		var CurrCommnt = $("#GroupCommentText" + id.toString()).val();
-		var url2 = '/Group/DisplayCommentCount';
-		var url = '/Group/SaveComment';
+		var url2 = '~/Group/DisplayCommentCount';
+		var url = '~/Group/SaveComment';
 		var PostData = { 'GroupUpdateId': Updateid, 'CommentText': CurrCommnt };
 		$.post(url, PostData, function (result) {
 		    $("#divgroupcommentUpdate" + id.toString()).html(result);
@@ -659,7 +661,7 @@
 
 	function EditBasicInfo()
 	{
-	    var url ='/Account/EditBasicInfo'
+	    var url ='../EditBasicInfo'
 	    $.get(url,function(result){
 	        $("#divBasicInfo").html('');
 	        $("#divBasicInfo").html(result);
@@ -668,7 +670,7 @@
 
 	function EditPersonalInfo()
 	{
-	    var url ='/Account/EditPersonalInfo'
+	    var url ='../EditPersonalInfo'
 	    $.get(url,function(result){
 	        $("#divPersonalInfo").html('');
 	        $("#divPersonalInfo").html(result);
@@ -677,7 +679,7 @@
 
 	function EditProfile()
 	{
-	    $.ajax({url: '/Account/ImageUpload',
+	    $.ajax({url: '../ImageUpload',
             cache:false,
             success: function(data) {
     	        $('#profilepic').html(data);
@@ -716,7 +718,7 @@
 	
     function SearchMember(groupid)
     {
-        var url ="/Group/SearchMemberForGoalAssigning";
+        var url ="~/Group/SearchMemberForGoalAssigning";
         $.get(url,{ 'id': groupid },function(result){
 	        $("#searchmember").html(result);
         });
@@ -733,7 +735,7 @@
     {
 //     $( "#update1" ).replaceWith( function() {
 //        return "<input type=\'text\' value=\'"+Msg+"  '/'>" + <input type=\'text\' value=\'"+Msg+"  '/'>" ;
-		var url = "/Goal/EditUpdate";
+		var url = "~/Goal/EditUpdate";
 	   // $("#UpdateStatus").html('');
 		$.get(url,{ 'id': UpdateId },function(result){
 	        $("#UpdateStatus"+ UpdateId.toString()).html(result);
@@ -757,7 +759,7 @@
 		}
 		else {
 			var PostData = { 'GoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus, 'UpdateId':id };
-			var url = '/Goal/EditUpdate';
+			var url = '~/Goal/EditUpdate';
              var numericCheck=DecimalValidate(CurrStatus);
              if( (CurrStatus=='') || (CurrStatus!='' && numericCheck))
              {
@@ -787,8 +789,8 @@
 
     function SupportUpdate(id)
     {
-		var url = "/Goal/SupportUpdate";
-		var url2 ="/Goal/DisplayUpdateSupportCount"
+		var url = "~/Goal/SupportUpdate";
+		var url2 ="~/Goal/DisplayUpdateSupportCount"
 		$.get(url,{ 'id': id },function(result){
 		    $('#support' + id).attr({id: 'unsupport'+id,title:'UnSupport This Update', onclick: 'UnSupportUpdate(' + id + ')'});
 	        $("#unsupport"+id).html("UnSupport");
@@ -800,8 +802,8 @@
     }
 
 	function UnSupportUpdate(Id) {
-	    var url2 ="/Goal/DisplayUpdateSupportCount"
-		$.get("/Goal/UnSupportUpdate/" + Id, function (e) {
+	    var url2 ="~/Goal/DisplayUpdateSupportCount"
+		$.get("~/Goal/UnSupportUpdate/" + Id, function (e) {
 		    $('#unsupport' + Id).attr({ id: 'support'+Id,title:'Support This Update', onclick: 'SupportUpdate(' + Id + ')'});
 			$("#support"+Id).html("Support");
 			//$("#unsupport" + Id).html('<a href="JavaScript:void(0);" id ="support'+ Id +'" onclick ="SupportUpdate(' + Id + ')">Support</a>');
@@ -844,7 +846,7 @@
 	    else 
         {
 		    var PostData = { 'GroupGoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus ,'GroupId':GroupId,'GroupUpdateId':id};
-            var url = '/Group/EditUpdate';
+            var url = '~/Group/EditUpdate';
             var numericCheck=DecimalValidate(CurrStatus);           
 
             if( (CurrStatus=='') || (CurrStatus!='' && numericCheck))
@@ -888,8 +890,8 @@
     }
 
 	function UnSupportGroupUpdate(Id) {
-	    var url2 ="/Group/DisplayUpdateSupportCount"
-		$.get("/Group/UnSupportUpdate/" + Id, function (e) {
+	    var url2 ="~/Group/DisplayUpdateSupportCount"
+		$.get("~/Group/UnSupportUpdate/" + Id, function (e) {
 		    $('#unSupportUpdate' + Id).attr({id: 'supportUpdate'+Id,title:'Support This Update', onclick: 'SupportGroupUpdate(' + Id + ')'});
 			$("#supportUpdate"+Id).html("Support");
 			//$("#supportGroupUpdate" + Id).html('<a href="JavaScript:void(0);" id ="supportGroupUpdate'+ Id +'" onclick ="SupportGroupUpdate(' + Id + ')">Support</a>');

@@ -192,6 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="ViewModels\FollowingViewModel.cs" />
     <Compile Include="ViewModels\FollowRequestFormModel.cs" />
     <Compile Include="ViewModels\FollowRequestViewModel.cs" />
+    <Compile Include="ViewModels\PostFormModel.cs" />
     <Compile Include="ViewModels\GoalFormModel.cs" />
     <Compile Include="ViewModels\GoalListViewModel.cs" />
     <Compile Include="ViewModels\GoalsPageViewModel.cs" />
@@ -615,6 +617,8 @@
     <Content Include="Views\Group\_GroupsTable.cshtml" />
     <Content Include="Views\Group\ListOfGroups.cshtml" />
     <Content Include="Views\Shared\_AlertInfo.cshtml" />
+    <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Post\ImageUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -670,7 +674,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5002</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -678,9 +682,8 @@
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
           <IISAppRootUrl>http://localhost:50010/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1050/social-network-master</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

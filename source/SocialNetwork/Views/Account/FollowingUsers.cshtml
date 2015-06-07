@@ -41,7 +41,7 @@
             currentPage++;
 
             $.ajax({
-                url: "/Account/Followings",
+                url: "~/Account/Followings",
                 type: "POST",
                 data: { page: currentPage },
                 dataType: "html",
