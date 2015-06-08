@@ -196,7 +196,7 @@
     });
 
         $(window).resize(function () {
-        var url = '~/Group/ReportPage';
+        var url = '@Url.Action("Reportpage", "Group")';
         $.get(url, { 'id': @Model.GroupGoalId }, function (data) {
             $('#graph').html(data);
         });
@@ -233,7 +233,7 @@
         else {
             $('#UpdateGroupValidation').html('');
             var PostData = { 'GroupGoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus, 'GroupId': GroupId };
-            var url = '~/Group/SaveUpdate';
+            var url = '@Url.Action("SaveUpdate", "Group")';
             var numericCheck = DecimalValidate(CurrStatus);
             if ((CurrStatus == '') || (CurrStatus != '' && numericCheck)) {
                 $.post(url, PostData, function (response) {

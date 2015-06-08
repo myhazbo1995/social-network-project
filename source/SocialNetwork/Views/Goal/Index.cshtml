@@ -226,7 +226,7 @@
     //    }
 	function CommentExpandInUpdate(UpdateId,commentcount) {
 		var Updateid = UpdateId;
-		var url = '~/Goal/DisplayComments';
+		var url = '@Url.Action("DisplayComments", "Goal")';
 		$.get(url, { 'updateId': Updateid }, function (result) {
 
 			$("#divcommentUpdate" + Updateid.toString()).html(result);
@@ -248,7 +248,7 @@
 	}
     
     $(window).resize(function () {
-        var url = '~/Goal/ReportPage';
+        var url = '@Url.Action("Reportpage", "Goal")';
         $.get(url, { 'id': @Model.GoalId }, function (data) {
             $('#graph').html(data);
         });
@@ -306,7 +306,7 @@
         {
             $('#UpdateValidation').html('');
 			var PostData = { 'GoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus };
-			var url = '~/Goal/SaveUpdate';
+			var url = '@Url.Action("SaveUpdate", "Goal")';
             var numericCheck=DecimalValidate(CurrStatus);
            
             if( (CurrStatus=='') || (CurrStatus!='' && numericCheck))

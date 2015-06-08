@@ -41,7 +41,7 @@ else
             currentPage++;
 
             $.ajax({
-                url: "~/Account/Followers",
+                url: '@Url.Action("Followers", "Account")',
                 type: "POST",
                 data: { page: currentPage },
                 dataType: "html",

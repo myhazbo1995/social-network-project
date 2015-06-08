@@ -260,6 +260,7 @@
     <Compile Include="ViewModels\UpdateListViewModel.cs" />
     <Compile Include="ViewModels\UpdateSupportersViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
+    <Compile Include="ViewModels\UploadImageForPostViewModel.cs" />
     <Compile Include="ViewModels\UploadImageViewModel.cs" />
     <Compile Include="ViewModels\UserFormModel.cs" />
     <Compile Include="ViewModels\UserProfileFormModel.cs" />
@@ -301,9 +302,7 @@
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\ProfilePics\3cad5400-6a85-4b49-b682-4e6c8ee002ef.png" />
-    <Content Include="Content\ProfilePics\dfb48ede-6a9c-432c-93e2-8a9ecff986c5.png" />
-    <Content Include="Content\ProfilePics\f6e2bce8-7b5c-4cd7-a2ac-104f2fc75f83.png" />
+    <Content Include="Content\Posts\facebook-avatar.png" />
     <Content Include="Content\ProfilePics\facebook-avatar.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\templatemo_329_blue_urban\about.html" />

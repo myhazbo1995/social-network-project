@@ -56,14 +56,14 @@
 
         evt = e || window.event;
         var userName = $("#searchUserSupport").val();
-        var url = '~/Goal/SearchUser';
+        var url = '@Url.Action("SearchUser", "Goal")';
         if ((evt.keyCode != 13) && ($("#searchUserSupport").val() != "" && $("#searchUserSupport").val().length >= 1)) {
             var getData = { 'username': userName, 'goalId': goalid };
             $.get(url, getData, function (result) {
                 $("#searchUserSupport").autocomplete({
                     source: result,
                     select: function (event, ui) {
-                        $.post("/Goal/InviteUser", { id: goalid, UserId: ui.item.id }, function (e, res) {
+                        $.post('@Url.Action("InviteUser", "Goal")', { id: goalid, UserId: ui.item.id }, function (e, res) {
                             $("#inviteResult").html(e);
                             $("#searchUserSupport").val("");
                             $("#searchUserSupport").autocomplete("disable");

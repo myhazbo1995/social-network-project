@@ -65,7 +65,7 @@
             currentGoalPage++;
 
             $.ajax({
-                url: "~/Goal/GoalList",
+                url: "@Url.Action("GoalList", "Goal")",
                 type: "POST",
                 data: { sortBy: sortBy, filterBy: filterBy, page: currentGoalPage },
                 dataType: "json",
@@ -108,7 +108,7 @@
     function ListOfGoals() {  
         var sortby = $("#sortby").val();
         var filterby = $("#filterby").val();
-        var url = '~/Goal/GoalList';
+        var url = '@Url.Action("GoalList", "Goal")';
         $.get(url, { 'sortBy': sortby, 'filterBy': filterby, 'page': 0 }, function (result) {
             $("#goalListContainer").html('');
             if (result == '') {

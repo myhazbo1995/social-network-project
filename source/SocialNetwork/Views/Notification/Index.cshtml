@@ -43,7 +43,7 @@ else
             currentPage++;
 
             $.ajax({
-                url: "~/Notification/Index",
+                url: '@Url.Action("Index", "Notification")',
                 type: "POST",
                 data: { page: currentPage },
                 dataType: "html",

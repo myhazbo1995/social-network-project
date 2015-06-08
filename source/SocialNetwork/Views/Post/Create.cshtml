@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNet.Identity
+@model SocialNetwork.Web.ViewModels.PostFormModel
+@{
+    ViewBag.Title = "Home Page";
+    //Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+}
+<link href="~/Content/CustomStyles.css" rel="stylesheet" type="text/css" />
+<div>
+<div class="span5">
+    @using (Html.BeginForm("Add", "Post", FormMethod.Post, new { @id = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <fieldset>
+        <legend></legend>
+            <table>
+                <tr>
+                
+                    <td>
+                        @Html.TextAreaFor(model => model.PostShortDescription, new { @class = "span3", style = "display:block;width:450px;height:100px;float:left", placeholder = "Enter the post short description" })<br>
+                        @Html.ValidationMessageFor(model => model.PostShortDescription)
+                    </td>
+                </tr>
+                <tr>
+                
+                    <td class="editor-field">
+                        @Html.TextAreaFor(model => model.PostLongDescription, new { @class = "span3", placeholder = "Enter the description", style = "display:block;width:450px;height: 150px;float:left" })
+                        @Html.ValidationMessageFor(model => model.PostLongDescription)
+                    </td>
+                </tr>
+                <tr>
+                  
+                    <td>
+                        <div id="PostPicture" class="row-fluid">
+                            <div class="span2">
+                                @if (String.IsNullOrEmpty(Model.PostPictureUrl))
+                                {
+                                    <img src="~/Content/Posts/facebook-avatar.png" class="thumbnail" />
+                                }
+                                else
+                                {
+                                    <a href="#myModal" id="image-post"><img src="@Url.Content(Model.PostPictureUrl)" class="thumbnail" /></a>
+                                }
+                            </div>
+                            <div class="span1">
+                                <a data-toggle="modal" href="#" id="editpicture" onclick='EditPostImage();'>
+                                    <span rel="tooltip"
+                                            title="Edit Post Picture"><i class=" icon-edit"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr><td height="20"></td></tr>
+                <tr>
+                    <td>
+                    <button id="submitbtn" class="btn btn-primary" value="Submit"> Create</button>&nbsp;&nbsp;
+                    <button class="btn" type ="reset" value="Cancel" onclick="window.location.href='@Url.Action("Index", "Home")'">Cancel</button>                        
+                    </td>
+                </tr>
+
+               
+                @Html.Hidden("UserId", User.Identity.GetUserId())
+                
+            </table>
+            
+        </fieldset>
+    }
+</div>
+</div>
+<script type="text/javascript">
+    
+    function EditPostImage() {
+        $.ajax({
+            url: '@Url.Action("ImageUpload", "Post", new { postId = Model.PostId, postShortDesc = Model.PostShortDescription, postLongDesc = Model.PostLongDescription })',
+            cache: false,
+            success: function (data) {
+                $('#PostPicture').html(data);
+            }
+        });
+        //	var url ='/Account/ImageUpload'
+
+        //	$.get(url,function(result)
+        //	{
+        //	$("#profilepic").html(result);
+
+        //	});
+    }
+    $("#Description").focus(function () {
+        $(this).animate({ "height": "60px" }, "slow");
+        return false;
+    });
+    $("#Description").blur(function () {
+        $("#Description").animate({ "height": "22px" }, "slow");
+        return false;
+    });
+</script>

@@ -7,7 +7,7 @@ namespace SocialNetwork.Model.Models
 {
     public class Post
     {
-        public int PostId { get; set; }
+        public string PostId { get; set; }
 
         public string PostShortDescription { set; get; }
 
