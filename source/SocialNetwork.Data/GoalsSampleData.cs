@@ -32,7 +32,7 @@ namespace SocialNetwork.Data
                 new GoalStatus{GoalStatusType="Completed"}
             }.ForEach(m => context.GoalStatus.Add(m));
 
-            context.Commit();
+            context.SaveChanges();
 
         }
 
