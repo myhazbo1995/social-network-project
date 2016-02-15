@@ -41,7 +41,8 @@
 //            window.location = '/Search/SearchAll/' + goal;
 //        }
         function SearchUser(e, id) {
-            evt = e || window.event;
+            console.log(id);
+            var evt = e || window.event;
             var userName = $("#searchUser").val();
             var url = '@Url.Action("SearchUserForGroup", "Group")';
 
@@ -50,11 +51,12 @@
                 var getData = { 'username': userName, 'groupId': id };
 
                 $.get(url, getData, function (result) {
+                    console.log(result);
                     $("#searchUser").autocomplete("enable");
                     $("#searchUser").autocomplete({
                         source: result,
                         select: function (event, ui) {
-                            $.post("/Group/InviteUser", { id: id, UserId: ui.item.id }, function (e, res) {
+                            $.post("@Url.Action("InviteUser", "Group")", { 'id': id, 'UserId': ui.id }, function (e, res) {
                                 $("#inviteResult").html(e);
                                 $("#searchUser").val("");
                                 $("#searchUser").autocomplete("disable");
@@ -365,6 +367,7 @@
 
 
     function drawChart(data, target) {
+
         //        if (data.length > 2) {
         $("#goalReport").html("<div style='top: 20px;position: relative;left: 10px;'><strong>Goal Progress</strong></div><div id='chart' style='top:20px'></div>");
         var plot1 = $.jqplot('chart', [target, data], {

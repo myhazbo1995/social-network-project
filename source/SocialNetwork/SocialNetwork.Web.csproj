@@ -682,7 +682,7 @@
           <IISAppRootUrl>http://localhost:50010/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>True</UseCustomServer>
-          <CustomServerUrl>http://localhost:1050/social-network-master</CustomServerUrl>
+          <CustomServerUrl>http://localhost/social-network-master</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

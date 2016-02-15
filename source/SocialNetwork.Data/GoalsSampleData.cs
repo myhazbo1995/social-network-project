@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SocialNetwork.Data
 {
-    public class GoalsSampleData : DropCreateDatabaseIfModelChanges<SocialNetworkEntities>
+    public class GoalsSampleData : CreateDatabaseIfNotExists<SocialNetworkEntities>
     {
         protected override void Seed(SocialNetworkEntities context)
         {

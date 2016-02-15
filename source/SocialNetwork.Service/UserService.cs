@@ -69,7 +69,7 @@ namespace SocialNetwork.Service
         }
         public IEnumerable<ApplicationUser> GetUsers(string username)
         {
-            var users = userRepository.GetMany(u => (u.FirstName + " " + u.LastName).Contains(username) || u.Email.Contains(username)).OrderBy(u => u.FirstName).ToList();
+            var users = userRepository.GetMany(u => (u.FirstName + " " + u.LastName).Contains(username) || u.Email.Contains(username) || u.UserName.ToLower().Contains(username.ToLower())).OrderBy(u => u.FirstName).ToList();
 
             return users;
         }

@@ -17,10 +17,10 @@
     <input type="text" id="searchUser"  placeholder="Invite People via Name" onkeypress="SearchUser(event,@Model.GroupId);" /><br />
     <div id="inviteResult">
     </div>
-    <center><b>or</b></center>
+    <div style="text-align: center;" ><b>or</b></div>
     <label>Email</label>
     <input type="email" id="Email" placeholder="Invite People via Email" 
-        onfocus="EnableInviteBtn()" onblur="DisableInviteBtn();" />
+        onfocus="EnableInviteBtn()" onblur="DisableInviteBtn()" />
     <button id="btnInvite" class="btn btn-primary" onclick="Invite(@Model.GroupId)" disabled="disabled">
         Invite
     </button>

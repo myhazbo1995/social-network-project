@@ -126,7 +126,7 @@
     @Html.HiddenFor(model => model.Y)
     @Html.HiddenFor(model => model.Width)
     @Html.HiddenFor(model => model.Height)
-    @*@Html.HiddenFor(model => model.File)*@
+    @Html.HiddenFor(model => model.File)
     @Html.HiddenFor(model=> model.PostLongDescription)
     @Html.HiddenFor(model=> model.PostShortDescription)
     @Html.HiddenFor(model=> model.PostId)
@@ -149,7 +149,7 @@
         <tr>
             <td align="right">
                 @*<input type="submit" class="btn btn-primary" value="Upload" />*@
-                <a data-toggle="modal" href='#' class="btn btn-primary" onclick="Update();">Update</a>
+                <a data-toggle="modal" id ="cos" href='#' class="btn btn-primary" onclick="Update();">Update</a>
                 <button class="btn" type="reset" value="Cancel" onclick="window.location.href='@Url.Action("Create", "Post")'">Cancel</button>
             </td>
         </tr>
@@ -160,23 +160,23 @@
 </div>
 <script type="text/javascript">
     
-        $('#form').submit(function (e) {
+            function Update() {
             console.log('olololo');
             var form = $(this);
-            if (form.valid()) {
+            //if (form.valid()) {
                 $.ajax({
-                    url: form.action, // Not available to 'form' variable
-                    type: form.method, // Not available to 'form' variable
-                    data: form.serialize(),
+                    url: '@Url.Action("UploadImage", "Post")', // Not available to 'form' variable
+                    type: 'POST', // Not available to 'form' variable
+                    data: $("#form").serialize(),
                     success: function(html) {
-                        $("#createPostModal").html(result);
+                        $("#createPostModal").html(html);
                         //Do something with the returned html.
                     }
                 });
-            }
-        });
+            //}
+        };
 
-        (function Update() {
+        @*(function Update() {
             console.log('ololololol');
             // var data = @Html.Raw(Json.Encode(Model));
             $.ajax({
@@ -185,10 +185,10 @@
                 data: { 'url': @Model.Url ,
                     'isUrl':@Model.IsUrl, 'File': @Model.File,
                     'LocalPath': @Model.LocalPath, 'IsFile': @Model.IsFile, 'X':@Model.X, 'Y': @Model.Y, 'Width':@Model.Width, 'Height': @Model.Height, 'PostId': @Model.PostId, 'PostShortDescription': @Model.PostShortDescription, 'PostLongDescription': @Model.PostLongDescription, 'PostPictureUrl':@Model.PostPictureUrl},
-               @*// data:{model:@Model},*@
+               @*// data:{model:@Model},
                 success: function (result) {
                     $("#createPostModal").html(result);
                 }
             });
-        });
+        });*@
 </script>

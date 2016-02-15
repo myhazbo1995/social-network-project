@@ -401,14 +401,14 @@
 
 
 <script type="text/javascript">
-	function GetFollowers(){
+    function GetFollowers(){
         $('#divFollowedGroup').getNiceScroll().remove();
         $('#divSGoals').getNiceScroll().remove();
         $('#divGoals').getNiceScroll().remove();
         $('#notification').getNiceScroll().remove();
         var url ='"Followers", "Account"';
         $.get(url,function(result){
-	        $("#followedUsers").html(result);    
+            $("#followedUsers").html(result);
         });
     }
 
@@ -420,7 +420,7 @@
         $('#notification').getNiceScroll().remove();
         var url ='@Url.Action("Followings", "Account")';
         $.get(url,function(result){
-	        $("#followingUsers").html(result);    
+            $("#followingUsers").html(result);
         });
     }
 
@@ -435,510 +435,522 @@
         var url = '@Url.Action("Create", "Goal")'
 
         $.get(url,function(result){
-	        $("#createGoalModal").html(result);        
+            $("#createGoalModal").html(result);
         });
     }
 
 
     function CreateGroup()
-	{
-	    $('#divFollowedGroup').getNiceScroll().remove();
-	    $('#divSGoals').getNiceScroll().remove();
-	    $('#divGoals').getNiceScroll().remove();
-	    $('#notification').getNiceScroll().remove();
-	    var url ='@Url.Action("CreateGroup", "Group")';
-	    $.get(url,function(result){
-	        $("#createGroup").html(result);
-	        $('#notification').getNiceScroll();
+    {
+        $('#divFollowedGroup').getNiceScroll().remove();
+        $('#divSGoals').getNiceScroll().remove();
+        $('#divGoals').getNiceScroll().remove();
+        $('#notification').getNiceScroll().remove();
+        var url ='@Url.Action("CreateGroup", "Group")';
+        $.get(url,function(result){
+            $("#createGroup").html(result);
+            $('#notification').getNiceScroll();
         });
     }
 
     function enableScroll()
-	{
-		$('#divFollowedGroup').niceScroll();
-		$('#divGroup').niceScroll();
-		$('#divSGoals').niceScroll();
-		$('#divGoals').niceScroll();
-		$('#notification').niceScroll();
-	}	 
-  
-	function Invite(groupId) {	   
-		if ($("Email").val() != "") {
-			$("#btnInvite").attr("disabled", "true");
-			var email = $("#Email").val();
-			var url = '@Url.Action("InviteEmail", "Group")';
-			var postData = { 'Email': email, 'GrouporGoalId': groupId }
-			$.post(url, postData, function (result) {
-				$("#msgGroup").css({'display':'block'});
-				$("#msgGroup").text(result);
-				$("#msgGroup").fadeOut(3000);
-				$("#Email").val('');
-				$("#btnInvite").removeAttr("disabled");
-			});
-		}
-	}
+    {
+        $('#divFollowedGroup').niceScroll();
+        $('#divGroup').niceScroll();
+        $('#divSGoals').niceScroll();
+        $('#divGoals').niceScroll();
+        $('#notification').niceScroll();
+    }
 
-	function SupportInvitation(id) {
-		url = '@Url.Action("SupportInvitation", "Goal")';
-		$.get(url, { goalId: id }, function (result) {
-			$('#InviteForm').html(result);
-		});
-	}
+    function Invite(groupId) {
+        if ($("Email").val() != "") {
+            $("#btnInvite").attr("disabled", "true");
+            var email = $("#Email").val();
+            var url = '@Url.Action("InviteEmail", "Group")';
+            var postData = { 'Email': email, 'GrouporGoalId': groupId }
+            $.post(url, postData, function (result) {
+                $("#msgGroup").css({'display':'block'});
+                $("#msgGroup").text(result);
+                $("#msgGroup").fadeOut(3000);
+                $("#Email").val('');
+                $("#btnInvite").removeAttr("disabled");
+            });
+        }
+    }
 
-	function SupportInvite(goalId) {
-		if ($("#SupportEmail").val() != "") 
+    function SupportInvitation(id) {
+        url = '@Url.Action("SupportInvitation", "Goal")';
+        $.get(url, { goalId: id }, function (result) {
+            $('#InviteForm').html(result);
+        });
+    }
+
+    function SupportInvite(goalId) {
+        if ($("#SupportEmail").val() != "")
         {
             $("#btnSupportInvite").attr("disabled", "true");
-			var email = $("#SupportEmail").val();
-			var url = "/Goal/InviteEmail";
-			postData = { 'Email': email, 'GrouporGoalId': goalId }
-			$.post(url, postData, function (result) {
-		        $("#msgSupport").css({'display':'block'});
-				$("#msgSupport").text(result);
-				$("#msgSupport").fadeOut(3000);
-				$("#SupportEmail").val('');
-				$("#btnSupportInvite").removeAttr("disabled");
-	        });
-		}
-	}
+            var email = $("#SupportEmail").val();
+            var url = "/Goal/InviteEmail";
+            postData = { 'Email': email, 'GrouporGoalId': goalId }
+            $.post(url, postData, function (result) {
+                $("#msgSupport").css({'display':'block'});
+                $("#msgSupport").text(result);
+                $("#msgSupport").fadeOut(3000);
+                $("#SupportEmail").val('');
+                $("#btnSupportInvite").removeAttr("disabled");
+            });
+        }
+    }
 
 
-	function SupportGoal(goalId) {
-		$.get("/Goal/SupportGoal/" + goalId, function (e) {
-			$("#support" + goalId).html('<input type="button"  class="btn btn-primary" value="UnFollow" id="UnSupportBtn' + goalId + '" onclick ="UnSupportGoal(' + goalId + ')" />');
-			//            <a id="UnSupport' + goalId + '" onclick="UnSupportGoal(' + goalId + ')"><i class="icon-minus"></i>Un-Support</a>');
-			$("#divSGoals").load("/Goal/GoalsFollowing");
-		});
-	}
+    function SupportGoal(goalId) {
+        $.get("/Goal/SupportGoal/" + goalId, function (e) {
+            $("#support" + goalId).html('<input type="button"  class="btn btn-primary" value="UnFollow" id="UnSupportBtn' + goalId + '" onclick ="UnSupportGoal(' + goalId + ')" />');
+            //            <a id="UnSupport' + goalId + '" onclick="UnSupportGoal(' + goalId + ')"><i class="icon-minus"></i>Un-Support</a>');
+            $("#divSGoals").load("/Goal/GoalsFollowing");
+        });
+    }
 
-	function UnSupportGoal(goalId) {
-		$.get("/Goal/UnSupportGoal/" + goalId, function (e) {
-			$("#support" + goalId).html(' <input type="button"  class="btn btn-primary" value="Follow" id="SupportBtn' + goalId + '" onclick ="SupportGoal(' + goalId + ')" />');
-			//            <a id="Support' + goalId + '" onclick="SupportGoal(' + goalId + ')"><i class="icon-plus"></i>Support</a>');
-			$("#divSGoals").load("/Goal/GoalsFollowing");
-		});
-	}
+    function UnSupportGoal(goalId) {
+        $.get("/Goal/UnSupportGoal/" + goalId, function (e) {
+            $("#support" + goalId).html(' <input type="button"  class="btn btn-primary" value="Follow" id="SupportBtn' + goalId + '" onclick ="SupportGoal(' + goalId + ')" />');
+            //            <a id="Support' + goalId + '" onclick="SupportGoal(' + goalId + ')"><i class="icon-plus"></i>Support</a>');
+            $("#divSGoals").load("/Goal/GoalsFollowing");
+        });
+    }
 
-	function SupportGoalNow(goalId) {
-		$.get("/Goal/SupportGoalNow/" + goalId, function (e) {
+    function SupportGoalNow(goalId) {
+        console.log(goalId + 'layout');
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("SupportGoalNow", "Goal")',
+	        data: { id: goalId },
+	        success: function(e) {
+	            $("#support" + goalId).html(' <input type="button"  class="btn btn-primary" value="Unfollow" id="UnSupportBtn' + goalId + '" onclick ="UnSupportGoal(' + goalId + ')" />');
+	            //          $("#grp-name").html(
+	            $("#divSGoals").load("@Url.Action("GoalsFollowing", "Goal")");
+	        }
+	    });
+	    @*var id = goalId;
+		$.get(@Url.Action("SupportGoalNow", "Goal"), { 'id': goalId }, function (e) {
 			$("#support" + goalId).html(' <input type="button"  class="btn btn-primary" value="Unfollow" id="UnSupportBtn' + goalId + '" onclick ="UnSupportGoal(' + goalId + ')" />');
 //          $("#grp-name").html(
-			$("#divSGoals").load("/Goal/GoalsFollowing");
-		});
-	}
+			$("#divSGoals").load(@Url.Action("GoalsFollowing", "Goal"));
+		});*@
+    }
 
-	function DeleteUser(userId,groupId) {
-		$.get("/Group/DeleteMember",{'userId':userId,'groupId':groupId}, function (e) {
-			$("#" + userId).html(e);
-			$("#divFollowedGroup").load("/Group/FollowedGroups");
-		});
-	}
+    function DeleteUser(userId,groupId) {
+        $.get("/Group/DeleteMember",{'userId':userId,'groupId':groupId}, function (e) {
+            $("#" + userId).html(e);
+            $("#divFollowedGroup").load("@Url.Action("FollowedGroups","Group")");
+        });
+    }
 
 
-	function DropDownChange() {
-		
-			$("#drpdwnBtn").attr("disabled", "true");
-			var id = $("#GoalStatusId").val();
-			var url = '@Url.Action("GoalStatus", "Goal")';
-			var goalid = $("#GoalId").val();
-			$.post(url, { 'id': id, 'goalid': goalid }, function (response) {
-			    $("#goalStatus").html(response);
+    function DropDownChange() {
 
-			    if (response == "Completed") {
+        $("#drpdwnBtn").attr("disabled", "true");
+        var id = $("#GoalStatusId").val();
+        var url = '@Url.Action("GoalStatus", "Goal")';
+        var goalid = $("#GoalId").val();
+        $.post(url, { 'id': id, 'goalid': goalid }, function (response) {
+            $("#goalStatus").html(response);
 
-			        $("#UpdatePostContent").hide();
-			        $(".EditDeleteUpdate").hide();
+            if (response == "Completed") {
 
-			    }
-			    else {
-			       
-			        $("#UpdatePostContent").show();
-			        $(".EditDeleteUpdate").show();
-			    }
-			    $("#drpdwnBtn").removeAttr("disabled");
-			});
-	}
+                $("#UpdatePostContent").hide();
+                $(".EditDeleteUpdate").hide();
 
-	function GroupDropDownChange() {		
-		$("#grpdrpdwnBtn").attr("disabled", "true");
-		var id = $("#GoalStatusId").val();
-		var url = '@Url.Action("GoalStatus", "Group")';
-		var goalid = $("#GoalId").val();
-		$.post(url, { 'id': id, 'goalid': goalid }, function (response) {
-		    $("#groupgoalStatus").html(response);
-		    if (response == "Completed") {
+            }
+            else {
 
-		        $("#UpdatePostContent").hide();
-		        $(".EditDeleteUpdate").hide();
-		    }
-		    else {
+                $("#UpdatePostContent").show();
+                $(".EditDeleteUpdate").show();
+            }
+            $("#drpdwnBtn").removeAttr("disabled");
+        });
+    }
 
-		        $("#UpdatePostContent").show();
-		        $(".EditDeleteUpdate").show();
-		    }
-			$("#grpdrpdwnBtn").removeAttr("disabled");
-		});
-	}
+    function GroupDropDownChange() {
+        $("#grpdrpdwnBtn").attr("disabled", "true");
+        var id = $("#GoalStatusId").val();
+        var url = '@Url.Action("GoalStatus", "Group")';
+        var goalid = $("#GoalId").val();
+        $.post(url, { 'id': id, 'goalid': goalid }, function (response) {
+            $("#groupgoalStatus").html(response);
+            if (response == "Completed") {
 
-    
+                $("#UpdatePostContent").hide();
+                $(".EditDeleteUpdate").hide();
+            }
+            else {
+
+                $("#UpdatePostContent").show();
+                $(".EditDeleteUpdate").show();
+            }
+            $("#grpdrpdwnBtn").removeAttr("disabled");
+        });
+    }
+
+
     function CommentExpandInGroupUpdate(UpdateId) {
-		var Updateid = UpdateId;
-		var url = '@Url.Action("DisplayComments", "Group")';
-		$.get(url, { 'id': Updateid }, function (result) {
+        var Updateid = UpdateId;
+        var url = '@Url.Action("DisplayComments", "Group")';
+        $.get(url, { 'id': Updateid }, function (result) {
 
-			$("#divgroupcommentUpdate" + Updateid.toString()).html(result);
-			$("#divgroupcommentUpdate" + Updateid.toString()).toggle("slow");
-		});
-	}
+            $("#divgroupcommentUpdate" + Updateid.toString()).html(result);
+            $("#divgroupcommentUpdate" + Updateid.toString()).toggle("slow");
+        });
+    }
 
-	function checkPressedKey(e,id)
-	{
-		evt=e||window.event;
-		if (evt.keyCode==13) {
-		    updateGroupComment(id);
-		}		
-	}
+    function checkPressedKey(e,id)
+    {
+        evt=e||window.event;
+        if (evt.keyCode==13) {
+            updateGroupComment(id);
+        }
+    }
 
-	function updateGroupComment(id) {		
-		var Updateid = id;
-		var CurrCommnt = $("#GroupCommentText" + id.toString()).val();
-		var url2 = '@Url.Action("DisplayCommentCount", "Group")';
-		var url = '@Url.Action("SaveComment", "Group")';
-		var PostData = { 'GroupUpdateId': Updateid, 'CommentText': CurrCommnt };
-		$.post(url, PostData, function (result) {
-		    $("#divgroupcommentUpdate" + id.toString()).html(result);
-		    $("#commentGroupToggle" + id.toString()).attr("onclick", "CommentExpandInGroupUpdate(" + id + ")");
-			$("#GroupCommentText" + id.toString()).val('');
-			$.get(url2, { 'id': Updateid }, function (data) {
-				$("#commentGroupToggle" + id.toString()).html(data + ' Comments<i class="icon-comment"></i>');
-			});
-		});		
-	}
-	
+    function updateGroupComment(id) {
+        var Updateid = id;
+        var CurrCommnt = $("#GroupCommentText" + id.toString()).val();
+        var url2 = '@Url.Action("DisplayCommentCount", "Group")';
+        var url = '@Url.Action("SaveComment", "Group")';
+        var PostData = { 'GroupUpdateId': Updateid, 'CommentText': CurrCommnt };
+        $.post(url, PostData, function (result) {
+            $("#divgroupcommentUpdate" + id.toString()).html(result);
+            $("#commentGroupToggle" + id.toString()).attr("onclick", "CommentExpandInGroupUpdate(" + id + ")");
+            $("#GroupCommentText" + id.toString()).val('');
+            $.get(url2, { 'id': Updateid }, function (data) {
+                $("#commentGroupToggle" + id.toString()).html(data + ' Comments<i class="icon-comment"></i>');
+            });
+        });
+    }
 
-	function EnableBtn()
-	{
+
+    function EnableBtn()
+    {
         $("#inviteResult").empty();
         $("#btnSupportInvite").removeAttr("disabled");
-	}
+    }
 
 
-	function DisableBtn()
-	{
-	    if($("#SupportEmail").val() == "")
-		{
-		    $("#btnSupportInvite").attr("disabled", "disabled");
-	    }
-	}
-	
-    
+    function DisableBtn()
+    {
+        if($("#SupportEmail").val() == "")
+        {
+            $("#btnSupportInvite").attr("disabled", "disabled");
+        }
+    }
+
+
     function EnableInviteBtn()
-	{
-		$("#inviteResult").empty();
-		$("#btnInvite").removeAttr("disabled");
-	}
-	
-    
+    {
+        $("#inviteResult").empty();
+        $("#btnInvite").removeAttr("disabled");
+    }
+
+
     function EnableDrpDwn()
-	{
-		$("#drpdwnBtn").removeAttr("disabled");
-	}
-	
+    {
+        $("#drpdwnBtn").removeAttr("disabled");
+    }
+
     function EnableGrpDrpDwn()
-	{
-		$("#grpdrpdwnBtn").removeAttr("disabled");
-	}
-	
-    
+    {
+        $("#grpdrpdwnBtn").removeAttr("disabled");
+    }
+
+
     function DisableInviteBtn()
-	{
-	    if($("#Email").val() == "")
-	    {	   
-	        $("#btnInvite").attr("disabled", "disabled");
-	    }
-	}
+    {
+        if($("#Email").val() == "")
+        {
+            $("#btnInvite").attr("disabled", "disabled");
+        }
+    }
 
 
-	function EditBasicInfo()
-	{
-	    var url ='../EditBasicInfo'
-	    $.get(url,function(result){
-	        $("#divBasicInfo").html('');
-	        $("#divBasicInfo").html(result);
-	    });
-	}
+    function EditBasicInfo()
+    {
+        var url ='../EditBasicInfo'
+        $.get(url,function(result){
+            $("#divBasicInfo").html('');
+            $("#divBasicInfo").html(result);
+        });
+    }
 
-	function EditPersonalInfo()
-	{
-	    var url ='../EditPersonalInfo'
-	    $.get(url,function(result){
-	        $("#divPersonalInfo").html('');
-	        $("#divPersonalInfo").html(result);
-	    });
-	}
+    function EditPersonalInfo()
+    {
+        var url ='../EditPersonalInfo'
+        $.get(url,function(result){
+            $("#divPersonalInfo").html('');
+            $("#divPersonalInfo").html(result);
+        });
+    }
 
-	function EditProfile()
-	{
-	    $.ajax({url: '../ImageUpload',
+    function EditProfile()
+    {
+        $.ajax({url: '../ImageUpload',
             cache:false,
             success: function(data) {
-    	        $('#profilepic').html(data);
+                $('#profilepic').html(data);
             }
         });
     }
 
 
-	function InviteEmail() {
-		if ($("#inviteEmail").val() != "") {
-			$("#sendBtn").attr("disabled", "true");
-			var role=$("#Roles").val();
-			var email = $("#inviteEmail").val();
-			var url = "/Admin/Invite";
-			var postData = { 'Email': email,'Role':role }
-			$.post(url, postData, function (result) {
-				$("#msgInvited").css({ 'display': 'block' });
-				$("#msgInvited").text(result);
-				$("#msgInvited").fadeOut(5000);
-				$("#inviteEmail").val('');
-				$("#sendBtn").removeAttr("disabled");
-			});
-		}
-	}
+    function InviteEmail() {
+        if ($("#inviteEmail").val() != "") {
+            $("#sendBtn").attr("disabled", "true");
+            var role=$("#Roles").val();
+            var email = $("#inviteEmail").val();
+            var url = "/Admin/Invite";
+            var postData = { 'Email': email,'Role':role }
+            $.post(url, postData, function (result) {
+                $("#msgInvited").css({ 'display': 'block' });
+                $("#msgInvited").text(result);
+                $("#msgInvited").fadeOut(5000);
+                $("#inviteEmail").val('');
+                $("#sendBtn").removeAttr("disabled");
+            });
+        }
+    }
 
-	function GetLink() {
-		var role=$("#Roles").val();		   
-		var url = "/Admin/GetLink";
-		var postData = {'Role':role }
-		$.post(url, postData, function (result) {
-			$("#link").val(result);
-		});		
-	}
+    function GetLink() {
+        var role=$("#Roles").val();
+        var url = "/Admin/GetLink";
+        var postData = {'Role':role }
+        $.post(url, postData, function (result) {
+            $("#link").val(result);
+        });
+    }
 
 
-	
+
     function SearchMember(groupid)
     {
         var url ='@Url.Action("SearchMemberForGoalAssigning", "Group")';
         $.get(url,{ 'id': groupid },function(result){
-	        $("#searchmember").html(result);
+            $("#searchmember").html(result);
         });
     }
 
     function AssigningUser(GroupUserId, UserId,UserName)
-    {   
+    {
         $("#assignedgroupuserId").val(GroupUserId);
         $("#AssignedUser").val(UserName);
         $("#searchClose").trigger("click");
     }
-    
+
     function EditUpdate(UpdateId)
     {
-//     $( "#update1" ).replaceWith( function() {
-//        return "<input type=\'text\' value=\'"+Msg+"  '/'>" + <input type=\'text\' value=\'"+Msg+"  '/'>" ;
-		var url = '@Url.Action("EditUpdate", "Goal")';
-	   // $("#UpdateStatus").html('');
-		$.get(url,{ 'id': UpdateId },function(result){
-	        $("#UpdateStatus"+ UpdateId.toString()).html(result);
+        //     $( "#update1" ).replaceWith( function() {
+        //        return "<input type=\'text\' value=\'"+Msg+"  '/'>" + <input type=\'text\' value=\'"+Msg+"  '/'>" ;
+        var url = '@Url.Action("EditUpdate", "Goal")';
+        // $("#UpdateStatus").html('');
+        $.get(url,{ 'id': UpdateId },function(result){
+            $("#UpdateStatus"+ UpdateId.toString()).html(result);
         });
-//    });
+        //    });
     }
 
-//For goal update edit
+    //For goal update edit
     function saveEditOfUpdate(target, metric,id) {
-		var update = 'Please Enter Update';
-		var status = 'Please Enter Status';
-		//$("#posteditupdate").attr("disabled", "true");
+        var update = 'Please Enter Update';
+        var status = 'Please Enter Status';
+        //$("#posteditupdate").attr("disabled", "true");
 
-		var Gid = $('#GoalId').val();
-		var CurrUpdte = $('#Updatemsg' + id.toString() ).val();
-		var CurrStatus = $('#status' + id.toString()).val();
+        var Gid = $('#GoalId').val();
+        var CurrUpdte = $('#Updatemsg' + id.toString() ).val();
+        var CurrStatus = $('#status' + id.toString()).val();
 
-		if ($('#Updatemsg' + id.toString()).val() == '') {
-			alert(update);
-			//$("#posteditupdate").removeAttr("disabled");
-		}
-		else {
-			var PostData = { 'GoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus, 'UpdateId':id };
-			var url = '@Url.Action("EditUpdate", "Goal")';
-             var numericCheck=DecimalValidate(CurrStatus);
-             if( (CurrStatus=='') || (CurrStatus!='' && numericCheck))
-             {
-			    $.post(url, PostData, function (response) {
-				    LoadReport();
-				    $("#divupdate").html(response);
-				    $("#Update").val('');
-				    $("#Status").val('');
-				    //$("#posteditupdate").removeAttr("disabled");
+        if ($('#Updatemsg' + id.toString()).val() == '') {
+            alert(update);
+            //$("#posteditupdate").removeAttr("disabled");
+        }
+        else {
+            var PostData = { 'GoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus, 'UpdateId':id };
+            var url = '@Url.Action("EditUpdate", "Goal")';
+            var numericCheck=DecimalValidate(CurrStatus);
+            if( (CurrStatus=='') || (CurrStatus!='' && numericCheck))
+            {
+                $.post(url, PostData, function (response) {
+                    LoadReport();
+                    $("#divupdate").html(response);
+                    $("#Update").val('');
+                    $("#Status").val('');
+                    //$("#posteditupdate").removeAttr("disabled");
 
-			    });
+                });
             }
             else
             {
-                 $("#updateStatusError").html('<label style="color:red;">Enter a valid status.</label>');
+                $("#updateStatusError").html('<label style="color:red;">Enter a valid status.</label>');
             }
-		}
-	}
+        }
+    }
 
-	function DeleteUpdate(UpdateId)
+    function DeleteUpdate(UpdateId)
     {
-	    var url = "/Goal/DeleteUpdate";
-		$.get(url,{ 'id': UpdateId },function(result){
-	        $("#UpdateStatus"+ UpdateId.toString()).html(result);
+        var url = "@Url.Action("DeleteUpdate","Goal")";
+        $.get(url,{ 'id': UpdateId },function(result){
+            $("#UpdateStatus"+ UpdateId.toString()).html(result);
         });
     }
 
     function SupportUpdate(id)
     {
-		var url = '@Url.Action("SupportUpdate", "Goal")';
+        var url = '@Url.Action("SupportUpdate", "Goal")';
         var url2 = '@Url.Action("DisplayUpdateSupportCount", "Goal")';
-		$.get(url,{ 'id': id },function(result){
-		    $('#support' + id).attr({id: 'unsupport'+id,title:'UnSupport This Update', onclick: 'UnSupportUpdate(' + id + ')'});
-	        $("#unsupport"+id).html("UnSupport");
-		    //$("#support" + id).html('<a href="JavaScript:void(0);" id =unsupport'+ id + '" onclick ="UnSupportUpdate(' + id + ')">Unsupport</a>')
-		    $.get(url2, { 'id': id }, function (data) {
-		        $("#SupportCount" + id.toString()).html(data + ' Supports<i class="icon-thumbs-up"></i>');
-		    });
+        $.get(url,{ 'id': id },function(result){
+            $('#support' + id).attr({id: 'unsupport'+id,title:'UnSupport This Update', onclick: 'UnSupportUpdate(' + id + ')'});
+            $("#unsupport"+id).html("UnSupport");
+            //$("#support" + id).html('<a href="JavaScript:void(0);" id =unsupport'+ id + '" onclick ="UnSupportUpdate(' + id + ')">Unsupport</a>')
+            $.get(url2, { 'id': id }, function (data) {
+                $("#SupportCount" + id.toString()).html(data + ' Supports<i class="icon-thumbs-up"></i>');
+            });
         });
     }
 
-	function UnSupportUpdate(Id) {
-	    var url2 = '@Url.Action("DisplayUpdateSupportCount", "Goal")';
-		$.get('@Url.Action("UnSupportUpdate", "Goal")' + Id, function (e) {
-		    $('#unsupport' + Id).attr({ id: 'support'+Id,title:'Support This Update', onclick: 'SupportUpdate(' + Id + ')'});
-			$("#support"+Id).html("Support");
-			//$("#unsupport" + Id).html('<a href="JavaScript:void(0);" id ="support'+ Id +'" onclick ="SupportUpdate(' + Id + ')">Support</a>');
-		    $.get(url2, { 'id': Id }, function (data) {
-					$("#SupportCount" + Id.toString()).html( data + ' Supports<i class="icon-thumbs-up"></i>');
-			});			
-		});
-	}
-
-	function SupportersOfUpdate(id)
-	{
-	    var url = "/Goal/SupportersOfUpdate";
-	    $.get(url,{ 'id': id },function(result){
-	        $("#updateSupportersModal").html(result);   	
+    function UnSupportUpdate(Id) {
+        var url2 = '@Url.Action("DisplayUpdateSupportCount", "Goal")';
+        $.get('@Url.Action("UnSupportUpdate", "Goal")' + Id, function (e) {
+            $('#unsupport' + Id).attr({ id: 'support'+Id,title:'Support This Update', onclick: 'SupportUpdate(' + Id + ')'});
+            $("#support"+Id).html("Support");
+            //$("#unsupport" + Id).html('<a href="JavaScript:void(0);" id ="support'+ Id +'" onclick ="SupportUpdate(' + Id + ')">Support</a>');
+            $.get(url2, { 'id': Id }, function (data) {
+                $("#SupportCount" + Id.toString()).html( data + ' Supports<i class="icon-thumbs-up"></i>');
+            });
         });
-	}
+    }
 
-	
+    function SupportersOfUpdate(id)
+    {
+        var url = "/Goal/SupportersOfUpdate";
+        $.get(url,{ 'id': id },function(result){
+            $("#updateSupportersModal").html(result);
+        });
+    }
+
+
     function EditGroupUpdate(UpdateId)
     {
-		var url = "/Group/EditUpdate";
-		$.get(url,{ 'id': UpdateId },function(result){
-	        $("#GroupUpdateStatus"+ UpdateId.toString()).html(result);
+        var url = "/Group/EditUpdate";
+        $.get(url,{ 'id': UpdateId },function(result){
+            $("#GroupUpdateStatus"+ UpdateId.toString()).html(result);
         });
     }
 
 
     function saveEditOfGroupUpdate(target,metric,id) {
-	    var update = 'Please Enter Update';
-	    $("#postEditOfGroupupdate").attr("disabled", "true");
-	    var Gid = $('#GoalId').val();
-	    var CurrUpdte = $('#GroupUpdatemsg' + id.toString() ).val();
-	    var CurrStatus = $('#GroupStatus' + id.toString()).val();
-	    var GroupId = $('#GroupId').val();
+        var update = 'Please Enter Update';
+        $("#postEditOfGroupupdate").attr("disabled", "true");
+        var Gid = $('#GoalId').val();
+        var CurrUpdte = $('#GroupUpdatemsg' + id.toString() ).val();
+        var CurrStatus = $('#GroupStatus' + id.toString()).val();
+        var GroupId = $('#GroupId').val();
 
-	    if ($('#GroupUpdatemsg' + id.toString() ).val() == '') {
-		    alert(update);
-		    $("#postEditOfGroupupdate").removeAttr("disabled");
-	    }
-	    else 
+        if ($('#GroupUpdatemsg' + id.toString() ).val() == '') {
+            alert(update);
+            $("#postEditOfGroupupdate").removeAttr("disabled");
+        }
+        else
         {
-		    var PostData = { 'GroupGoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus ,'GroupId':GroupId,'GroupUpdateId':id};
+            var PostData = { 'GroupGoalId': Gid, 'Updatemsg': CurrUpdte, 'status': CurrStatus ,'GroupId':GroupId,'GroupUpdateId':id};
             var url = '@Url.Action("EditUpdate", "Group")';
-            var numericCheck=DecimalValidate(CurrStatus);           
+            var numericCheck=DecimalValidate(CurrStatus);
 
             if( (CurrStatus=='') || (CurrStatus!='' && numericCheck))
             {
-		    	$.post(url, PostData, function (response) {
-			    	LoadReport();
-			    	$("#divgroupupdate").html(response);
-		            $("#GroupUpdate").val('');
-			        $("#Status").val('');			    
-			    });
+                $.post(url, PostData, function (response) {
+                    LoadReport();
+                    $("#divgroupupdate").html(response);
+                    $("#GroupUpdate").val('');
+                    $("#Status").val('');
+                });
             }
             else
             {
                 $("#statusErrorEdit").html('<label style="color:red;">Enter a valid status.</label>');
-            }       
-	    }
-    } 
+            }
+        }
+    }
 
 
-	function DeleteGroupUpdate(UpdateId)
+    function DeleteGroupUpdate(UpdateId)
     {
-	    var url = "/Group/DeleteUpdate";
-		$.get(url,{ 'id': UpdateId },function(result){
-	        $("#GroupUpdateStatus"+ UpdateId.toString()).html(result);
+        var url = "@Url.Action("DeleteUpdate", "Goal")";
+        $.get(url,{ 'id': UpdateId },function(result){
+            $("#GroupUpdateStatus"+ UpdateId.toString()).html(result);
         });
     }
 
 
     function SupportGroupUpdate(id)
     {
-		var url = "/Group/SupportUpdate";
-		var url2 ="/Group/DisplayUpdateSupportCount"
-		$.get(url,{ 'id': id },function(result){
-	    	 $('#supportUpdate' + id).attr({id: 'unSupportUpdate'+id,title:'UnSupport This Update', onclick: 'UnSupportGroupUpdate(' + id + ')' });
-		    $("#unSupportUpdate"+id).html("UnSupport");
-		    //$("#supportGroupUpdate" + id).html('<a href="JavaScript:void(0);" id ="UnsupportGroupUpdate'+ id + '" onclick ="UnSupportGroupUpdate(' + id + ')">Unsupport</a>')
-		    $.get(url2, { 'id': id }, function (data) {
-		        $("#SupportGroupCount" + id.toString()).html(data + ' Supports<i class="icon-thumbs-up"></i>');
-		    });
-        });    
+        var url = "/Group/SupportUpdate";
+        var url2 ="/Group/DisplayUpdateSupportCount"
+        $.get(url,{ 'id': id },function(result){
+            $('#supportUpdate' + id).attr({id: 'unSupportUpdate'+id,title:'UnSupport This Update', onclick: 'UnSupportGroupUpdate(' + id + ')' });
+            $("#unSupportUpdate"+id).html("UnSupport");
+            //$("#supportGroupUpdate" + id).html('<a href="JavaScript:void(0);" id ="UnsupportGroupUpdate'+ id + '" onclick ="UnSupportGroupUpdate(' + id + ')">Unsupport</a>')
+            $.get(url2, { 'id': id }, function (data) {
+                $("#SupportGroupCount" + id.toString()).html(data + ' Supports<i class="icon-thumbs-up"></i>');
+            });
+        });
     }
 
-	function UnSupportGroupUpdate(Id) {
-	    var url2 ='@Url.Action("DisplayUpdateSupportCount", "Group")'
-		$.get('@Url.Action("UnSupportUpdate", "Group")' + Id, function (e) {
-		    $('#unSupportUpdate' + Id).attr({id: 'supportUpdate'+Id,title:'Support This Update', onclick: 'SupportGroupUpdate(' + Id + ')'});
-			$("#supportUpdate"+Id).html("Support");
-			//$("#supportGroupUpdate" + Id).html('<a href="JavaScript:void(0);" id ="supportGroupUpdate'+ Id +'" onclick ="SupportGroupUpdate(' + Id + ')">Support</a>');
-			$.get(url2, { 'id': Id }, function (data) {
-					$("#SupportGroupCount" + Id.toString()).html( data + ' Supports<i class="icon-thumbs-up"></i>');
-			});			
-		});
-	}
-
-	function SupportersOfGroupUpdate(id)
-	{
-	    var url = "/Group/SupportersOfUpdate";
-	    $.get(url,{ 'id': id },function(result){
-	        $("#groupUpdateSupportersModal").html(result);
+    function UnSupportGroupUpdate(Id) {
+        var url2 ='@Url.Action("DisplayUpdateSupportCount", "Group")'
+        $.get('@Url.Action("UnSupportUpdate", "Group")' + Id, function (e) {
+            $('#unSupportUpdate' + Id).attr({id: 'supportUpdate'+Id,title:'Support This Update', onclick: 'SupportGroupUpdate(' + Id + ')'});
+            $("#supportUpdate"+Id).html("Support");
+            //$("#supportGroupUpdate" + Id).html('<a href="JavaScript:void(0);" id ="supportGroupUpdate'+ Id +'" onclick ="SupportGroupUpdate(' + Id + ')">Support</a>');
+            $.get(url2, { 'id': Id }, function (data) {
+                $("#SupportGroupCount" + Id.toString()).html( data + ' Supports<i class="icon-thumbs-up"></i>');
+            });
         });
-	}
+    }
 
-	function RemoveAssigned()
-	{
-		$("#assignedgroupuserId").val('');
-		$("#AssignedUser").val('');
-	}
+    function SupportersOfGroupUpdate(id)
+    {
+        var url = "/Group/SupportersOfUpdate";
+        $.get(url,{ 'id': id },function(result){
+            $("#groupUpdateSupportersModal").html(result);
+        });
+    }
 
-	function Cancel(id)
-	{
-		var url = "/Goal/DisplayUpdates";
-	    $.get(url,{ 'id': id },function(result){
-	        $("#DisplayUpdates").html(result);
-	    });
-	}
+    function RemoveAssigned()
+    {
+        $("#assignedgroupuserId").val('');
+        $("#AssignedUser").val('');
+    }
 
-	function GroupCancel(id)
-	{
-		var url = "/Group/DisplayUpdates";
-	    $.get(url,{ 'id': id },function(result){
-	        $("#divgroupupdate").html(result);
-	    });
-	}
+    function Cancel(id)
+    {
+        var url = "/Goal/DisplayUpdates";
+        $.get(url,{ 'id': id },function(result){
+            $("#DisplayUpdates").html(result);
+        });
+    }
+
+    function GroupCancel(id)
+    {
+        var url = "/Group/DisplayUpdates";
+        $.get(url,{ 'id': id },function(result){
+            $("#divgroupupdate").html(result);
+        });
+    }
 
     //this well check the text is nukmeric or not
-     function DecimalValidate(num) {
-         var regex = /^[-+]?[0-9]+(\.[0-9]+)?$/;
-         if (regex.test(num)) {
-             return true;
-         } else {
+    function DecimalValidate(num) {
+        var regex = /^[-+]?[0-9]+(\.[0-9]+)?$/;
+        if (regex.test(num)) {
+            return true;
+        } else {
             return false;
-         }
-     }
+        }
+    }
 
 </script>

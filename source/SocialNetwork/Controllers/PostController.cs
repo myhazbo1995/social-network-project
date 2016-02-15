@@ -161,69 +161,69 @@ namespace SocialNetwork.Controllers
             return PartialView("Create", postModel);
         }
 
-        [HttpPost]
-        public PartialViewResult UploadImage(string url, bool isUrl, HttpPostedFile File, string LocalPath, bool IsFile, int X, int Y, int Width, int Height, string PostId, string PostShortDescription, string PostLongDescription, string PostPictureUrl)
-        {
-            //Check if all simple data annotations are valid
-            if (ModelState.IsValid)
-            {
-                //Prepare the needed variables
-                Bitmap original = null;
-                var name = "newimagefile";
-                var errorField = string.Empty;
+        //[HttpPost]
+        //public PartialViewResult UploadImage(string url, bool isUrl, HttpPostedFile File, string LocalPath, bool IsFile, int X, int Y, int Width, int Height, string PostId, string PostShortDescription, string PostLongDescription, string PostPictureUrl)
+        //{
+        //    //Check if all simple data annotations are valid
+        //    if (ModelState.IsValid)
+        //    {
+        //        //Prepare the needed variables
+        //        Bitmap original = null;
+        //        var name = "newimagefile";
+        //        var errorField = string.Empty;
 
-                if (isUrl)
-                {
-                    errorField = "Url";
-                    name = GetUrlFileName(url);
-                    original = GetImageFromUrl(url);
-                }
-                else if (File != null)
-                {
-                    errorField = "File";
-                    name = Path.GetFileNameWithoutExtension(File.FileName);
-                    original = Bitmap.FromStream(File.InputStream) as Bitmap;
-                }
+        //        if (isUrl)
+        //        {
+        //            errorField = "Url";
+        //            name = GetUrlFileName(url);
+        //            original = GetImageFromUrl(url);
+        //        }
+        //        else if (File != null)
+        //        {
+        //            errorField = "File";
+        //            name = Path.GetFileNameWithoutExtension(File.FileName);
+        //            original = Bitmap.FromStream(File.InputStream) as Bitmap;
+        //        }
 
-                //If we had success so far
-                if (original != null)
-                {
-                    var img = CreateImage(original, X, Y, Width, Height);
-                    var fileName = PostId;
-                    //var oldFilepath = userService.GetUser(User.Identity.GetUserId()).ProfilePicUrl;
-                    //var oldFile = Server.MapPath(oldFilepath);
-                    //Demo purposes only - save image in the file system
-                    var fn = Server.MapPath("~/Content/Posts/Post_" + fileName + ".png");
-                    img.Save(fn, System.Drawing.Imaging.ImageFormat.Png);
-                    //postService.SaveImageURL(model.PostId, "~/Content/Posts/Post_" + fileName + ".png");
-                    //if (System.IO.File.Exists(oldFile))
-                    //{
-                    //    System.IO.File.Delete(oldFile);
-                    //}
-                    PostPictureUrl = fn;
-                    //return RedirectToAction("UserProfile", new { id = User.Identity.GetUserId() });
-                }
-                else //Otherwise we add an error and return to the (previous) view with the model data
-                    ModelState.AddModelError(errorField, Resources.UploadError);
-            }
+        //        //If we had success so far
+        //        if (original != null)
+        //        {
+        //            var img = CreateImage(original, X, Y, Width, Height);
+        //            var fileName = PostId;
+        //            //var oldFilepath = userService.GetUser(User.Identity.GetUserId()).ProfilePicUrl;
+        //            //var oldFile = Server.MapPath(oldFilepath);
+        //            //Demo purposes only - save image in the file system
+        //            var fn = Server.MapPath("~/Content/Posts/Post_" + fileName + ".png");
+        //            img.Save(fn, System.Drawing.Imaging.ImageFormat.Png);
+        //            //postService.SaveImageURL(model.PostId, "~/Content/Posts/Post_" + fileName + ".png");
+        //            //if (System.IO.File.Exists(oldFile))
+        //            //{
+        //            //    System.IO.File.Delete(oldFile);
+        //            //}
+        //            PostPictureUrl = fn;
+        //            //return RedirectToAction("UserProfile", new { id = User.Identity.GetUserId() });
+        //        }
+        //        else //Otherwise we add an error and return to the (previous) view with the model data
+        //            ModelState.AddModelError(errorField, Resources.UploadError);
+        //    }
 
-            var postModel = new PostFormModel();
+        //    var postModel = new PostFormModel();
 
-            postModel.PostId = PostId;
-            postModel.PostLongDescription = !String.IsNullOrEmpty(PostLongDescription)
-                ? PostLongDescription
-                : String.Empty;
-            postModel.PostShortDescription = !String.IsNullOrEmpty(PostShortDescription)
-                ? PostShortDescription
-                : String.Empty;
-            postModel.PostPictureUrl = !String.IsNullOrEmpty(PostPictureUrl)
-                ? PostPictureUrl
-                : String.Empty;
-            postModel.UserId = User.Identity.GetUserId();
+        //    postModel.PostId = PostId;
+        //    postModel.PostLongDescription = !String.IsNullOrEmpty(PostLongDescription)
+        //        ? PostLongDescription
+        //        : String.Empty;
+        //    postModel.PostShortDescription = !String.IsNullOrEmpty(PostShortDescription)
+        //        ? PostShortDescription
+        //        : String.Empty;
+        //    postModel.PostPictureUrl = !String.IsNullOrEmpty(PostPictureUrl)
+        //        ? PostPictureUrl
+        //        : String.Empty;
+        //    postModel.UserId = User.Identity.GetUserId();
 
-            // return PartialView("Create", postModel);
-            return PartialView("Create", postModel);
-        }
+        //    // return PartialView("Create", postModel);
+        //    return PartialView("Create", postModel);
+        //}
 
         /// <summary>
         /// Gets an image from the specified URL.

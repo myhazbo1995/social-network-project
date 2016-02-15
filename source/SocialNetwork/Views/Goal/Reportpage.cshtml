@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Mvc.Mailer
+@{
     ViewBag.Title = "Reportpage";
 }
 
@@ -7,18 +8,20 @@
 
 
 <script type="text/javascript">
-   
+
     $(document).ready(function () {
         LoadReport();
     });
-   
+
 
     function LoadReport() {
         var goalId = $('#GoalId').val();
-        var updates = $('#Updates').val();
+        var url = '@Url.Action("GetGoalReport", "Goal")';
 
-        $.get("/Goal/GetGoalReport", { id: goalId }, function (result) {
+        console.log(goalId);
 
+        $.post(url, { 'id': goalId }, function (result) {
+            console.log(goalId);
             var data = [], target = [];
             $(result.Data).each(function (i, v) {
                 data.push([v.Date, v.Value]);
@@ -27,6 +30,11 @@
                 target.push([v.EndDate, v.Target]);
             });
             if (data.length > 0) {
+                console.log(1);
+                //setTimeout(function () {
+                //    console.log(1);
+                //    drawChart(data, target);
+                //}, 10000);
                 setTimeout(drawChart(data, target), 10000);
             }
 
